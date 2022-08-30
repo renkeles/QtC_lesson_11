@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     form = new Form;
     connect(form, &Form::mainwindow, this, &MainWindow::show);
+    connect(this, SIGNAL(sendForm(QString, QDate, int)), form, SLOT(getForm(QString, QDate, int)));
+
 }
 
 MainWindow::~MainWindow()
@@ -21,7 +23,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-
+    task = ui->lineEdit->text();
+    date = ui->dateEdit->date();
+    priority = ui->spinBox->value();
+    sendForm(task, date, priority);
 }
 
 
